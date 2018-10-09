@@ -110,6 +110,9 @@ public class MyFrame extends JFrame implements KeyListener{
 		num_plus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ev) {
+				if(!num1_now) {
+					num_equals.doClick();
+				}
 				num1_now = false;
 				operation = "+";
 				//((JLabel)results.getComponent(0)).setText("0");;
@@ -118,18 +121,27 @@ public class MyFrame extends JFrame implements KeyListener{
 		num_minus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ev) {
+				if(!num1_now) {
+					num_equals.doClick();
+				}
 				num1_now = false;
 				operation = "-";			}
 		});
 		num_mul.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ev) {
+				if(!num1_now) {
+					num_equals.doClick();
+				}
 				num1_now = false;
 				operation = "*";			}
 		});
 		num_div.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ev) {
+				if(!num1_now) {
+					num_equals.doClick();
+				}
 				num1_now = false;
 				operation = "/";
 				//((JLabel)results.getComponent(0)).setText("0");;

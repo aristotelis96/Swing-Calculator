@@ -1,46 +1,78 @@
 package swing;
 
 public class Number {
-	private String number_str;
+	private long number;
 	
 	public Number() {
-		number_str = "";
+		number = 0;
 	}
 	public void add(String num) {
-		try {
-			number_str+= num;
-		}
-		catch(Exception e) {
-			number_str = number_str.substring(0, number_str.length()-1);
-		}
+		number*=10;
+		number += Integer.parseInt(num);
 	}
 	
 	@Override
 	public String toString() {
-		return (number_str);
+		return formation(number);
 		
 	}
 	public void clear() {
-		number_str = "";
+		number = 0;
 	}
+	
 	public void sum(Number num2) {
-		number_str = Integer.toString( num2.getNumber() + Integer.parseInt(number_str) );
-		
+		number += num2.getNumber();
 	}
-	public int getNumber() {
-		return Integer.parseInt(number_str);
+	
+	public long getNumber() {
+		return number;
 	}
-	public void set(int n) {
-		number_str = Integer.toString(n);
+	public void set(long n) {
+		number = n;
 	}
 	public void sub(Number num2) {
-		number_str = Integer.toString(Integer.parseInt(number_str) - num2.getNumber());
+		number -= num2.getNumber();
 	}
 	public void mul(Number num2) {
-		number_str = Integer.toString( num2.getNumber() * Integer.parseInt(number_str) );
+		number *= num2.getNumber();
 	}
 	public void div(Number num2) {
-		number_str = Integer.toString(Integer.parseInt(number_str)/num2.getNumber() );
+		number /= num2.getNumber();
+	}
+	
+	private String formation(long remaining) {
+		String formatted = "";
+		long last_digits;
+		
+		boolean negative = false;
+		if (remaining<0) {
+			remaining *= -1;
+			negative = true;
+		}
+		
+		while (remaining>=1000) {
+			last_digits = remaining % 1000;
+			if (last_digits >= 100) {
+				formatted = "." + Long.toString(last_digits) + formatted;
+			}
+			else if (last_digits >= 10) {
+				formatted = ".0" + Long.toString(last_digits) + formatted;
+			}
+			else if (last_digits >0) {
+				formatted = ".00" + Long.toString(last_digits) + formatted;
+			}
+			else {
+				formatted = ".000" + formatted;
+			}
+			remaining -= last_digits;
+			remaining /= 1000;
+		}
+		last_digits = remaining;
+		formatted = Long.toString(last_digits) + formatted;
+		if (negative) {
+			formatted = "-" + formatted;
+		}
+		return formatted;
 	}
 	
 }	

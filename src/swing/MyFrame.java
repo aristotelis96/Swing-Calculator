@@ -17,7 +17,7 @@ public class MyFrame extends JFrame implements KeyListener{
 	private static JButton C = new JButton("C");
 	private static boolean num1_now = true;
 	private static String operation;
-	private static int result = 0;
+	private static long result = 0;
 	private static Font myFont = new Font(Font.DIALOG, Font.PLAIN,40);
 
 
@@ -53,7 +53,6 @@ public class MyFrame extends JFrame implements KeyListener{
 		results.add(new JLabel("Test"),BorderLayout.EAST);
 		
 		((JLabel)(results.getComponent(0))).setFont(new Font(Font.DIALOG, Font.PLAIN,40));
-		//((JLabel)(results.getComponent(0))).setHorizontalAlignment(SwingConstants.RIGHT);;
 		
 		add(results, BorderLayout.NORTH);
 		
@@ -115,7 +114,6 @@ public class MyFrame extends JFrame implements KeyListener{
 				}
 				num1_now = false;
 				operation = "+";
-				//((JLabel)results.getComponent(0)).setText("0");;
 			}
 		});
 		num_minus.addActionListener(new ActionListener() {
@@ -154,7 +152,9 @@ public class MyFrame extends JFrame implements KeyListener{
 					result = operate(num1, num2, operation);
 					num1.set(result);
 					num2.clear();
-					((JLabel)results.getComponent(0)).setText(Integer.toString(result));;
+					Number tmp = new Number();
+					tmp.set(result);
+					((JLabel)results.getComponent(0)).setText(tmp.toString());;
 					num1_now = true;
 				}
 				catch (Exception e){
@@ -164,7 +164,7 @@ public class MyFrame extends JFrame implements KeyListener{
 					((JLabel)results.getComponent(0)).setText("0");;				}
 			}
 			
-			private int operate(Number num1, Number num2, String operation) {
+			private long operate(Number num1, Number num2, String operation) {
 				switch(operation) {
 				case"+":
 					num1.sum(num2);

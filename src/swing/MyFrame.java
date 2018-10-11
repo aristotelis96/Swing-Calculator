@@ -16,7 +16,7 @@ public class MyFrame extends JFrame implements KeyListener{
 	private static JButton num_equals = new JButton("=");
 	private static JButton C = new JButton("C");
 	private static boolean num1_now = true;
-	private static String operation;
+	private static String operation = "+";
 	private static Font myFont = new Font(Font.DIALOG, Font.PLAIN,40);
 
 

@@ -17,12 +17,12 @@ public class MyFrame extends JFrame implements KeyListener{
 	private static JButton C = new JButton("C");
 	private static boolean num1_now = true;
 	private static String operation;
-	private static long result = 0;
 	private static Font myFont = new Font(Font.DIALOG, Font.PLAIN,40);
 
 
 	private static Number num1 = new Number();
 	private static Number num2 = new Number();
+	private static Number result = new Number();
 
 	//Constructor
 	public MyFrame() {
@@ -113,6 +113,7 @@ public class MyFrame extends JFrame implements KeyListener{
 					num_equals.doClick();
 				}
 				num1_now = false;
+				num2.clear();
 				operation = "+";
 			}
 		});
@@ -123,6 +124,7 @@ public class MyFrame extends JFrame implements KeyListener{
 					num_equals.doClick();
 				}
 				num1_now = false;
+				num2.clear();
 				operation = "-";			}
 		});
 		num_mul.addActionListener(new ActionListener() {
@@ -132,6 +134,7 @@ public class MyFrame extends JFrame implements KeyListener{
 					num_equals.doClick();
 				}
 				num1_now = false;
+				num2.clear();
 				operation = "*";			}
 		});
 		num_div.addActionListener(new ActionListener() {
@@ -141,27 +144,17 @@ public class MyFrame extends JFrame implements KeyListener{
 					num_equals.doClick();
 				}
 				num1_now = false;
+				num2.clear();
 				operation = "/";
-				//((JLabel)results.getComponent(0)).setText("0");;
 			}
 		});
 		num_equals.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ev) {
-				try {
-					result = operate(num1, num2, operation);
-					num1.set(result);
-					num2.clear();
-					Number tmp = new Number();
-					tmp.set(result);
-					((JLabel)results.getComponent(0)).setText(tmp.toString());;
+					result.set(operate(num1, num2, operation));
+					num1.set(result.getNumber());					
+					((JLabel)results.getComponent(0)).setText(result.toString());;
 					num1_now = true;
-				}
-				catch (Exception e){
-					num1.clear();
-					num2.clear();
-					num1_now = true;
-					((JLabel)results.getComponent(0)).setText("0");;				}
 			}
 			
 			private long operate(Number num1, Number num2, String operation) {

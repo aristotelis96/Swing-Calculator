@@ -36,6 +36,7 @@ public class MyFrame extends JFrame implements KeyListener{
 	// Main Function
 	public static void main (String[] args) {
 		MyFrame calc = new MyFrame();
+		calc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		calc.runApp();
 		
 	}

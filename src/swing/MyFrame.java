@@ -158,7 +158,7 @@ public class MyFrame extends JFrame implements KeyListener{
 					num1_now = true;
 			}
 			
-			private long operate(Number num1, Number num2, String operation) {
+			private double operate(Number num1, Number num2, String operation) {
 				switch(operation) {
 				case"+":
 					num1.sum(num2);

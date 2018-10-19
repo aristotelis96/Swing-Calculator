@@ -15,6 +15,8 @@ public class MyFrame extends JFrame implements KeyListener{
 	private static JButton num_div = new JButton("/");
 	private static JButton num_equals = new JButton("=");
 	private static JButton C = new JButton("C");
+	private static JButton point = new JButton(".");
+
 	private static boolean num1_now = true;
 	private static String operation = "+";
 	private static Font myFont = new Font(Font.DIALOG, Font.PLAIN,40);
@@ -58,7 +60,7 @@ public class MyFrame extends JFrame implements KeyListener{
 		add(results, BorderLayout.NORTH);
 		
 		//buttons window
-		buttons.setLayout(new GridLayout(4,4));
+		buttons.setLayout(new GridLayout(5,4));
 		for (int i=0; i<10; i++){
 			num[i] = new JButton(Integer.toString(i));
 			num[i].setFont(new Font(Font.DIALOG, Font.PLAIN,40));
@@ -69,6 +71,7 @@ public class MyFrame extends JFrame implements KeyListener{
 		num_mul.setFont(myFont);
 		num_div.setFont(myFont);
 		C.setFont(myFont);
+		point.setFont(myFont);
 		//add button to grid
 		buttons.add(num[7]);
 		buttons.add(num[8]);
@@ -86,6 +89,7 @@ public class MyFrame extends JFrame implements KeyListener{
 		buttons.add(num[0]);
 		buttons.add(num_div);
 		buttons.add(num_equals);
+		buttons.add(point);
 
 
 		//add grid to frame
@@ -189,7 +193,18 @@ public class MyFrame extends JFrame implements KeyListener{
 			}
 		});
 		
-
+		point.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ev) {
+				
+				if(num1_now) {
+					num1.dec(true);
+				}
+				else {
+					num2.dec(true);
+				}
+			}
+		});
 	}
 	@Override
 	public void keyPressed(KeyEvent arg0) {
@@ -217,6 +232,9 @@ public class MyFrame extends JFrame implements KeyListener{
 			break;
 		case"Escape":
 			C.doClick();
+			break;
+		case"NumPad .":
+			point.doClick();
 			break;
 		}
 

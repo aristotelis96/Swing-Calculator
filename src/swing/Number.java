@@ -2,13 +2,23 @@ package swing;
 
 public class Number {
 	private double number;
+	private boolean dec ;
+	private int dec_pos;
 	
 	public Number() {
 		number = 0;
+		dec = false;
+		dec_pos = 1;
 	}
 	public void add(String num) {
-		number*=10;
-		number += Integer.parseInt(num);
+		if(dec) {
+			number += (Double.parseDouble(num)/(Math.pow(10,dec_pos)));
+			dec_pos++;
+		}
+		else {
+			number *= 10;
+			number += Integer.parseInt(num);
+		}
 	}
 	
 	@Override
@@ -18,6 +28,8 @@ public class Number {
 	}
 	public void clear() {
 		number = 0;
+		dec = false;
+		dec_pos = 1;
 	}
 	
 	public void sum(Number num2) {
@@ -41,6 +53,7 @@ public class Number {
 	}
 	
 	private String formation(double remaining) {
+		System.out.println(number);
 		String formatted = "";
 		long last_digits;
 		double decimal_part = 0;
@@ -51,8 +64,17 @@ public class Number {
 			remaining *= -1;
 			negative = true;
 		}
-		last_digits = (long) remaining;
-		decimal_part = remaining - last_digits;
+		formatted = Double.toString(remaining);
+		
+		String[] parts = formatted.split("\\.");
+		String decimal = parts[0];
+		String fractional = parts[1];
+		
+		remaining = Long.parseLong(decimal);
+		decimal_part = Double.parseDouble(fractional);
+		decimal_part = decimal_part / (Math.pow(10,fractional.length()));
+		System.out.println(decimal_part);
+		formatted = "";
 		while (remaining>=1000) {
 			last_digits = (long) remaining % 1000;
 			if (last_digits >= 100) {
@@ -70,17 +92,21 @@ public class Number {
 			remaining -= last_digits;
 			remaining /= 1000;
 		}
-		last_digits = (long) remaining;
+		last_digits =  (long)remaining;
+		
 		if(decimal_part == 0.0) {
 			formatted = Long.toString(last_digits) + formatted;
 		}
 		else {
-			formatted = Long.toString(last_digits) + formatted + Double.toString(decimal_part).substring(1, Double.toString(decimal_part).length());
+			formatted = Long.toString(last_digits) + formatted + "," + Double.toString(decimal_part).substring(2, Double.toString(decimal_part).length());
 		}
 		if (negative) {
 			formatted = "-" + formatted;
 		}
 		return formatted;
+	}
+	public void dec(boolean b) {
+		dec = b;
 	}
 	
 }	
